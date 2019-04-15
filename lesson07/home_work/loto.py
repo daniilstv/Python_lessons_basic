@@ -57,3 +57,121 @@
 модуль random: http://docs.python.org/3/library/random.html
 
 """
+
+import random
+
+barrel_set = random.sample(range(1, 91), 90)
+
+def card(): # генератор карточки
+    card_set = random.sample(range(1, 91), 15)
+    
+    a = []
+    for i in range(5):
+        a.append(card_set.pop())    
+    a = sorted(a)
+    for i in range(4):
+        a.insert(random.randrange(0, 8, 1), ". ")
+
+    b = []
+    for i in range(5):
+        b.append(card_set.pop())    
+    b = sorted(b)
+    for i in range(4):
+        b.insert(random.randrange(0, 8, 1), ". ")
+#    print(*b)
+
+    c = []
+    for i in range(5):
+        c.append(card_set.pop())    
+    c = sorted(c)
+    for i in range(4):
+        c.insert(random.randrange(0, 8, 1), ". ")
+#    print(*c)
+    return a+b+c
+    
+
+print("       Игра Лото\n")
+
+
+
+# Печать карточек
+print("------ Ваша карточка -----")
+my_card = card()
+print(*my_card[0:9])
+print(*my_card[9:18])
+print(*my_card[18:27])
+print("-"*27)
+print('\n')
+
+print("-- Карточка компьютера ---")
+npc_card = card()
+print(*npc_card[0:9])
+print(*npc_card[9:18])
+print(*npc_card[18:27])
+print("-"*27)
+
+
+# через функции
+my_score = 0
+npc_score = 0
+
+def lose():
+    print("Вы проиграли!")
+
+
+
+def game_set():
+    my_score = 0
+    npc_score = 0
+    open_barrel = barrel_set.pop()
+    print("Открыт бочонок:",open_barrel, " осталось в мешке ", len(barrel_set))
+    answer = input("Зачеркнуть цифру? выйти? (y/n/q)")
+
+    if answer == "y":  
+
+        for i in range(len(my_card)):
+            if my_card[i] == open_barrel:
+                print("Зачеркнута цифра", my_card[i])
+                my_card[i] = "-"
+                my_score += 1
+                check_win()
+                game_set()
+                return my_score
+#            else:
+#                lose()
+#                break
+                
+    if answer == "n":
+        
+        
+        pass
+    if answer == "q":
+        print("До свидания")
+
+def print_cards():     
+    print("------ Ваша карточка -----")
+#    my_card = card()
+    print(*my_card[0:9])
+    print(*my_card[9:18])
+    print(*my_card[18:27])
+    print("-"*27)
+    print('\n')
+
+    print("-- Карточка компьютера ---")
+#    npc_card = card()
+    print(*npc_card[0:9])
+    print(*npc_card[9:18])
+    print(*npc_card[18:27])
+    print("-"*27)                
+
+
+def check_win():
+    if my_score == 15:
+        print("Вы выиграли!")
+    elif npc_score == 15 and my_score == 15:
+        print("Ничья")
+    else:
+        lose()
+
+
+
