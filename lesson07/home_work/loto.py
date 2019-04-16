@@ -150,6 +150,8 @@ while my_score < 15 and npc_score < 15 and answer != 'q':
         print_cards()
         if my_score == 15:
             win()
+        elif my_score == 15 and npc_score == 15:
+            print("Ничья")
         
     elif answer == 'n' and not check_barrel(open_barrel, my_card):
         print('\n'*3)
