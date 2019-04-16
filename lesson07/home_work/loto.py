@@ -145,18 +145,20 @@ while my_score < 15 and npc_score < 15 and answer != 'q':
     if answer == 'y' and check_barrel(open_barrel, my_card):
         my_score += 1
         print("\n"*3)
-        check_barrel(open_barrel, npc_card)
+        if check_barrel(open_barrel, npc_card) is True:
+            npc_score += 1
         print_cards()
         if my_score == 15:
             win()
         
     elif answer == 'n' and not check_barrel(open_barrel, my_card):
         print('\n'*3)
-        check_barrel(open_barrel, npc_card)
+        if check_barrel(open_barrel, npc_card) is True:
+            npc_score += 1
         print_cards() 
     
     elif answer not in ['y', 'n', 'q']:
-        print('\n\n\nНеправильный ввод \n')
+        print('\n\n\nНеправильный ввод. \n')
         print_cards()
     
     else:
